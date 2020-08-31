@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toggleSideBarShow($event)">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button routerLink="/">My Project Angular</button>
+    <span class="spacer"></span>
+    <div *ngIf="authService.auth.user | async as user; else logIn">
+      <span>{{ user.displayName }}</span>
+    </div>
+    <ng-template #logIn>
+      <button mat-button (click)="login()">LogIn</button>
+    </ng-template>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div *ngIf="authService.auth.user | async as user; else showLogin">
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </div>
+      <ng-template #showLogin>
+        <button mat-menu-item (click)="login()">Login with Google</button>
+      </ng-template>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
