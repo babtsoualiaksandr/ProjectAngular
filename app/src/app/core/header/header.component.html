@@ -5,9 +5,15 @@
     </button>
     <button mat-button routerLink="/">My Project Angular</button>
     <span class="spacer"></span>
-    <div *ngIf="authService.auth.user | async as user; else logIn">
-      <span>{{ user.displayName }}</span>
+    <mat-card style="display: none"></mat-card>
+    <mat-card-header  *ngIf="authService.auth.user | async as user; else logIn">
+      <mat-card-subtitle>{{ user.displayName }}</mat-card-subtitle>
+      <!-- <img src="{{ user.photoURL }}" alt="avatar"> -->
+      <!-- <div mat-card-avatar class="avatar-image"></div> -->
+      <div mat-card-avatar
+      style="background-image: url('{{ user.photoURL }}');">
     </div>
+    </mat-card-header >
     <ng-template #logIn>
       <button mat-button (click)="login()">LogIn</button>
     </ng-template>

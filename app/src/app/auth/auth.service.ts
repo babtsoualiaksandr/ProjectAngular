@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ public user = null;
     this.auth.signOut();
   }
 
-  getUser(): Observable<User| null>{
-    return this.auth.user;
+  getUser(): Observable<User | null>{
+    return from(this.auth.currentUser) ;
   }
 }
