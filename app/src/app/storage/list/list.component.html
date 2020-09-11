@@ -1,0 +1,64 @@
+Firebase Cloud Storage & Angular Select a file for upload:
+<input
+  hidden="true"
+  #uploadFile
+  type="file"
+  (change)="upload($event)"
+  accept=".png,.jpg"
+/>
+<button color="primary" mat-icon-button (click)="uploadFile.click()">
+  <mat-icon>cloud_upload</mat-icon>
+</button>
+<mat-progress-bar
+  mode="determinate"
+  value="{{ uploadProgress | async }}"
+></mat-progress-bar>
+<mat-card class="card" *ngIf="downloadURL | async; let downloadSrc; ">
+  <img mat-card-image src="{{ downloadSrc }}" alt="Photo" />
+</mat-card>
+
+<form [formGroup]="formImage" class="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="full-width">
+    <mat-label>name</mat-label>
+    <input matInput placeholder="Ex. Masha" value="Name" formControlName ="name">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" *ngIf="downloadURL | async; let downloadSrc; ">
+    <mat-label>url</mat-label>
+    <input matInput placeholder="Ex. url"  formControlName="url">
+  </mat-form-field>
+  <button color="primary" type="submit" mat-icon-button [disabled]="!formImage.valid">
+    <mat-icon>done</mat-icon>
+  </button>
+</form>
+
+
+
+<table>
+  <thead>
+    <th>id</th>
+    <th>name</th>
+    <th>url</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let image of images">
+
+      <td>{{image.id}}</td>
+      <td>{{image.name}}</td>
+      <td>{{image.url}}</td>
+      <td>
+          <button (click)="delete(image.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<ul>
+  <li *ngFor="let item of listDownLoad">
+    <mat-card class="card" *ngIf="item">
+      <img mat-card-image src="{{ item }}" alt="Photo" />
+    </mat-card>
+  </li>
+</ul>
+

@@ -18,6 +18,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('../auth/auth.module').then((m) => m.AuthModule),
       },
+      {
+        path: 'storage',
+        loadChildren: () =>
+          import('../storage/storage.module').then((m) => m.StorageModule ),
+      },
     ],
   },
   { path: '', redirectTo: '/', pathMatch: 'full' },
